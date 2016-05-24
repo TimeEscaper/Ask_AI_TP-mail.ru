@@ -124,3 +124,5 @@ LOGIN_REDIRECT_URL = '/'
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = '/home/sibirsky/Ask_AI_TP-mail.ru/static/'
+
