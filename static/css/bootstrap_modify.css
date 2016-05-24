@@ -1,0 +1,215 @@
+body{
+	background: #e6e6e6;
+}
+
+.navbar{
+	border-radius: 0px;
+	/*background-color: #006699;*/
+	/*border-color: #006699;*/
+}
+
+.navbar-default .navbar-brand{
+	font-size: 23pt;
+	color: blue;
+}
+	.navbar-default .navbar-brand:hover{
+		color: orange;
+	}
+
+.nav li img{
+	margin-top: 2px;
+}	
+
+.base-tag-list{
+	list-style: none;
+}
+
+.main-content{
+	margin-top: 3%;
+}
+
+.main-content-central{
+}
+
+.main-content-right{
+	margin-top: 5%;
+}
+
+.question-box{
+	background: #f2f2f2;
+	margin-top: 5%;
+	border: 2px #003366 solid;
+	padding: 1%;
+	border-radius: 20px;
+}
+
+.answers-and-likes{
+	margin-top: 3%;
+}
+
+	.answers-and-likes .answers{
+		float: left;
+	}
+	
+	.answers-and-likes .likes{
+		float: right;
+	}
+    
+        .answers-and-likes .likes .like{
+            color: green;
+        }
+        
+            .answers-and-likes .likes .like:hover{
+                text-shadow: green 0 0 5px;
+                cursor: pointer;
+            }
+            
+            
+        
+        .answers-and-likes .likes .dislike{
+            color: red;
+        }
+        
+            .answers-and-likes .likes .dislike:hover{
+                text-shadow: red 0 0 5px;
+                cursor: pointer;
+            }
+    
+    
+
+.paginator{
+	margin-top: 5%;
+	margin-bottom: 3%;
+}
+
+.question-view{
+
+}
+	
+	.question-view .author{
+		margin-top: 1%;
+	}
+	
+		.question-view .author .author-img{
+			display: inline;
+			float: left;
+			margin-right: 2%;
+		}
+		
+		.question-view .author .author-name{
+			padding-top: 15px;
+		}
+		
+	.question-view .text{
+			background: #f2f2f2;
+			margin-top: 5%;
+			border: 1px #003366 solid;
+			padding: 1%;
+			font-size: 12pt;
+	}
+	
+	.question-view .tags-and-likes{
+		margin-top: 2%;
+	}
+		.question-view .tags-and-likes .tags{
+			float: left;
+		}
+		
+		.question-view .tags-and-likes .likes{
+			float: right;
+		}
+        
+            .tags-and-likes .likes .like{
+                    color: green;
+            }
+        
+            .tags-and-likes .likes .like:hover{
+                text-shadow: green 0 0 5px;
+                cursor: pointer;
+            }
+            
+.form-errors{
+    color: red;
+    font-style: bold;
+}
+            
+            
+        
+        .tags-and-likes .likes .dislike{
+            color: red;
+        }
+        
+            .tags-and-likes .likes .dislike:hover{
+                text-shadow: red 0 0 5px;
+                cursor: pointer;
+            }
+
+.answer-list{
+	margin-top: 4%;
+	margin-bottom: 10%;
+}
+
+.answer-box{
+	margin-top: 3%;
+}
+	.answer-box .likes-dislikes
+	{
+		margin-top: 2%;
+		float: right;
+	}
+		
+        .answer-box .likes-dislikes .likes{
+                    color: green;
+            }
+        
+        .answer-box .likes-dislikes .likes:hover{
+                text-shadow: green 0 0 5px;
+                cursor: pointer;
+            }
+            
+            
+        
+        .answer-box .likes-dislikes .dislikes{
+            color: red;
+        }
+        
+            .answer-box .likes-dislikes .dislikes:hover{
+                text-shadow: red 0 0 5px;
+                cursor: pointer;
+            }
+                
+		
+.answer-type{	
+	margin-top: 10%;
+	border-bottom: 1px #ccc solid;
+	padding-bottom: 10px;
+}
+
+	.answer-type textarea{
+		margin-bottom: 1%;
+	}
+	
+.ask-form{
+	
+}
+
+	.ask-form form
+	{
+		margin-top: 7%;
+	}
+	
+.login-form{
+
+}
+		.login-form form{
+			margin-top: 7%;
+		}
+		
+			.login-form form p{
+				margin-top: 5%;
+				margin-left: 6%;
+			}
+	
+/*.active{
+	background-color: #6699ff;
+}*/

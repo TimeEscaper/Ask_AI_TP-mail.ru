@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+ <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="base-page">
+	<meta name="author" content="TimeEscaper">
+	
+	<link rel="stylesheet" href="http://localhost/static/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://localhost/static/css/bootstrap_modify.css"> 
+	
+	<title>{{ page_title }}</title>
+	
+ </head>
+ 
+ <body>
+	 
+	<!-- Navbar Start -->
+		<nav class="navbar navbar-default">
+		  <div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand" href="http://localhost">Ask AI</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			
+			  <!-- Left-side buttons -->
+			  <ul class="nav navbar-nav">
+				<li ><!--class="active"--> <a href="http://localhost">Главная <span class="sr-only">(current)</span></a></li>
+				<li><a href="http://localhost/hot">Вопросы</a></li>
+			  </ul> <!-- End of left-side buttons -->
+			  		
+			  <!--Search form -->		
+			  <form class="navbar-form navbar-left" role="search">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Поиск..." />
+				</div>
+				<button type="submit" class="btn btn-primary btn-sm">Найти!</button>
+			  </form> <!-- End of search form -->
+              
+              {% if user.is_authenticated %}
+                <!-- Authorized user block -->
+			  <ul class="nav navbar-nav navbar-right">
+				<li><img src="http://lorempixel.com/45/45" class="img-circle"/></li>
+				<li class="dropdown">
+					 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Username<span class="caret"></span></a>
+					 <ul class="dropdown-menu">
+						<li><a href="#">Профиль</a></li>
+						<li><a href="#">Мои вопросы</a></li>
+						<li><a href="#">Сообщения</a></li>
+						<li><a href="#">Настройки</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="http://localhost/logout/?continue={{ request.path }}">Выход</a></li>
+					 </ul>
+				</li>
+			  </ul> <!-- End of the user-block -->
+              {% else %}
+            
+                <!-- Unauthorized user block -->
+			  <ul class="nav navbar-nav navbar-right">
+				<li><a href="http://localhost/login/">Войти</a></li>
+				<li><a href="http://localhost/signup/">Регистрация</a></li>
+			  </ul> <!-- End of the user-block -->
+            
+                {% endif %}
+			  
+			</div><!-- /.navbar-collapse -->
+		  </div><!-- /.container -->
+		</nav>
+	<!-- Navbar End -->
+	
+	<!-- Content start -->
+	<div class="container main-content">
+	 <div class="row">
+		
+		<!-- Central panel -->
+		<div class="col-md-8 main-content-central">
+			<!--<h1>Main page</h1> -->
+            {% block content %}{% endblock %}
+			
+		</div><!-- End of central panel -->
+		
+		
+		<!-- Right panel -->
+		<div class="col-md-3 col-md-offset-1 main-content-right">
+			<h4>Популярные теги:</h4>
+			<ul class="base-tag-list">
+				<li><a href="http://localhost/tag/web/">Веб</a></li>
+				<li><a href="http://localhost/tag/algorythms/">Алгоритмы</a></li>
+				<li><a href="http://localhost/tag/study/">Учеба</a></li>
+				<li><a href="http://localhost/tag/Life/">Жизнь</a></li>
+				<li><a href="http://localhost/tag/policy/">Политика</a></li>
+			</ul>
+		</div><!-- End of the right panel -->
+		
+	 </div>
+     
+     	 <!-- Paginator Start -->
+	 <div class="row paginator">
+         <div class="col-md-offset-2"> 
+            {% block paginator %}
+            {% endblock %}
+         </div>
+	</div> <!-- Paginator end -->
+    
+	</div> <!-- Content end -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="http://localhost/static/js/bootstrap.min.js"></script>
+ </body>`	
+</html>

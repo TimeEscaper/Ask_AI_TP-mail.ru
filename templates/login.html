@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+            <script>
+                function checkFields(){
+                    var email = document.getElementById('inputEmail3').value;
+                    if(email == '')
+                    {
+                        var input = document.getElementById('form-group-email');
+                        
+                        input.className = input.className.replace('form-group', 'form-group has-error');
+                    }
+                }
+            </script>
+            
+            {% if user.is_authenticated %}
+            <h3 class="text-success">Пользователь авторизован!</h3>
+            {% else %}
+            {% if errors = '1' %}
+           <h3 class="text-danger">Неправильные логин или пароль!</h3>
+            {% endif %}
+			<!-- Login form begin -->
+			<div class="login-form">
+				
+				<h1>Вход</h1>
+				<form class="form-horizontal" action="http://localhost/login/?continue=/" method="POST">
+                    {% csrf_token %}
+				  <div class="form-group" id="form-group-email">
+					<label for="inputEmail3" class="col-sm-2 control-label" >Логин:</label>
+					<div class="col-sm-10">
+					  <input name="username" type="text" class="form-control" id="inputEmail3" placeholder="Логин" aria-describedby="email-error">
+                      <span id="email-error" class="help-block"></span>
+					</div>
+				  </div>
+				  <div class="form-group">
+					<label for="inputPassword3" class="col-sm-2 control-label">Пароль:</label>
+					<div class="col-sm-10">
+					  <input name="password" type="password" class="form-control" id="inputPassword3" placeholder="Пароль" aria-describedby="password-error">
+                      <span id="password-error" class="help-block"></span>
+					</div>
+				  </div>
+				  <div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+					  <div class="checkbox">
+						<label>
+						  <input type="checkbox">Запомнить 
+						</label>
+					  </div>
+					</div>
+				  </div>
+				  <div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+					  <button  class="btn btn-primary" onclick="checkFields()">Вход</button>
+					</div>
+				  </div>
+				  <p><a href="signup.html">Создать новый аккаунт</a></p>
+				</form>
+		
+			</div><!-- Login form end -->
+            {% endif %}
+                
+{% endblock %}
+			

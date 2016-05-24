@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    		<h2>Новые вопросы</h2>
+			
+            {% for question in page_objects %}
+			<!-- Question box -->
+			<div class="row question-box">
+				<div class="col-md-2">
+					<h4><a href="#">{{ question.author.username }}</a></h4>
+					<img src="{{ question.author.avatar }}" class="img-circle" />
+				</div>
+				<div class="col-md-10">
+					<h4><a href="{{ question.get_url }}">{{ question.title }}</a></h4>
+					<p>Теги: 
+                    {% for tag in question.tags.all %}
+                    <a href="{{ tag.get_url }}"><span class="label label-primary">{{ tag.name }}</span></a>&nbsp;
+                    {% endfor %}
+                    </p>
+					<div class="text">
+                        {{ question.text }}
+					</div>
+					<div class="answers-and-likes">
+						<div class="answers"><span class="label label-success">Ответов: {{ question.answer_count }}</span></div>
+						<div class="likes">
+                            <span class="like"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>&nbsp;
+                            {{ question.likes_count }}
+                            &nbsp;&nbsp;</span><span class="dislike"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>&nbsp;
+                            {{ question.dislikes_count }}
+                            </span>
+                        </div>
+					</div>
+				</div>
+			</div> <!-- End of question box -->
+            {% endfor %}
+			
+
+     {% endblock %}
+			
+	 
+     
+     {% block paginator %}
+	 <!-- Paginator Start -->
+			 <nav>
+			  <ul class="pagination pagination-lg">
+				<li>
+				  <a href="#" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+				  </a>
+				</li>
+                {% for p in paginator.page_range %}
+                {% if p == page_objects.number %}
+				<li class="active">
+                {% else %}
+                <li>
+                {% endif %}
+                <a href="{{paginator.baseurl}}{{p}}">{{ p }}</a></li>
+                {% endfor %}
+				<li>
+				  <a href="#" aria-label="Next">
+					<span aria-hidden="true">&raquo;</span>
+				  </a>
+				</li>
+			  </ul>
+			</nav>
+	 <!-- Paginator end -->
+{% endblock %}

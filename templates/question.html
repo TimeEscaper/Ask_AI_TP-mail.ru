@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block content %}
+		 <!-- Question-view start -->
+		 <div class="question-view">
+			 <h1>{{ question.title }}</h1>
+			 <div class="author">
+				<div class="author-img">
+				 <img src="{{ question.author.avatar }}" class="img-circle" />
+				</div>
+				<h5 class="author-name"><a href="#">{{ question.author.username }}</a></h5>
+			 </div>
+			 <div class="text">
+                 {{ question.text }}
+			 </div>
+			 <div class="tags-and-likes">
+				 <div class="tags">Теги: 
+                 {% for tag in question.tags.all %}
+                 <a href="{{ tag.get_url }}"><span class="label label-primary">{{ tag.name }}</span></a>&nbsp;
+                 {% endfor %}
+                 </div>
+				 <div class="likes">
+                    <span class="like"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>&nbsp;
+                    {{ question.likes_count }}
+                    &nbsp;&nbsp;</span><span class="dislike"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>&nbsp;
+                    {{ question.dislikes_count }}
+                    </span>
+                </div>
+			</div>
+		 </div><!-- End of Question-view -->
+		
+		<!-- Answer type begin -->
+		<div class="answer-type">
+			<h4>Ваш ответ:</h4>
+			<textarea class="form-control" rows="5" placeholder="Введите свой ответ"></textarea>
+			<button type="submit" class="btn btn-primary btn-sm">Отправить</button>
+		</div><!--End of Answer-type -->
+		
+		<!--Answers start -->	
+		<div class="answer-list">
+			<h3>Ответы:</h3>
+			
+            {% for answer in page_objects %}
+            
+			<!-- Answer box start -->
+			<div class="row answer-box">
+				<div class="col-md-2">
+						<h4><a href="#">{{ answer.author.username }}</a></h4>
+						<img src="{{ answer.author.avatar }}" class="img-circle" />
+				</div>
+				<div class="col-md-10">
+					<div class="text">
+                        {{ answer.text }}
+					</div>
+					<div class="likes-dislikes">
+						<span class="likes"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>&nbsp;
+                        {{ answer.likes_count }}
+                        &nbsp;&nbsp;</span><span class="dislikes"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>&nbsp;
+                        {{ answer.dislikes_count }}
+                        </span>
+					</div>
+				</div>
+			</div><!-- Answer box end -->
+            
+            {% endfor %}
+			
+			
+		</div><!-- End of the answers -->
+        
+{% endblock %}
+
+     
+     {% block paginator %}
+	 <!-- Paginator Start -->
+			 <nav>
+			  <ul class="pagination pagination-lg">
+				<li>
+				  <a href="#" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+				  </a>
+				</li>
+                {% for p in paginator.page_range %}
+                {% if p == page_objects.number %}
+				<li class="active">
+                {% else %}
+                <li>
+                {% endif %}
+                <a href="{{paginator.baseurl}}{{p}}">{{ p }}</a></li>
+                {% endfor %}
+				<li>
+				  <a href="#" aria-label="Next">
+					<span aria-hidden="true">&raquo;</span>
+				  </a>
+				</li>
+			  </ul>
+			</nav>
+	 <!-- Paginator end -->
+{% endblock %}
+
