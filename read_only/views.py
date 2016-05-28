@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from models import Question, Answer
+from models import Question, Answer, UserProfile
 from django.core.paginator import Paginator, Page
 from django.contrib import auth
+from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_protect
 import logging
 
@@ -67,7 +68,32 @@ def logout_display(request):
         return HttpResponseRedirect(request.GET.get('continue', 'http://localhost/'))
         
 def signup_display(request):
-        return render(request, 'signup.html', {'page_title': 'Sign Up', })
+        #return render(request, 'signup.html', {'page_title': 'Sign Up', })
+        if request.method == 'POST':
+            request_username = request.POST.get('username','')
+            request_password = request.POST.get('password','')
+            request_psw_confirm = request.POST.get('psw_confirm')
+            request_email = request.POST.get('email')
+            
+            if request_password != request_psw_confirm:
+                return render(request, 'signup.html', {'page_title': 'Sign Up', 'errors': '1' })
+                
+            if User.objects.filter(username = request_username).exists() or User.objects.filter(email = request_email).exists():
+                return render(request, 'signup.html', {'page_title': 'Sign Up', 'errors': '2' })
+                
+            new_user = User.objects.create_user(request_username, request_email, request_password)
+            new_user.save()
+            new_profile = UserProfile(user_account = new_user, username = new_user.username, avatar = 'http://lorempixel.com/60/60/')
+            new_profile.save()
+            
+            new_user_session = auth.authenticate(username = request_username, password = request_password)
+            auth.login(request, new_user_session)
+            
+            return HttpResponseRedirect(request.GET.get('continue', 'http://localhost/'))
+            
+            
+        return render(request, 'signup.html', {'page_title': 'Sign Up', 'errors': '0'})
+            
         
 def question_display(request, question_id):
         try:

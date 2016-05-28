@@ -1,36 +1,52 @@
 {% extends 'base.html' %}
 {% block content %}
- 
+            
+            {% if user.is_authenticated %}
+            <h3 class="text-success">Пользователь авторизован!</h3>
+            {% else %}
+            
 			<!-- Login form begin -->
 			<div class="login-form">
 				
+                {% if errors = '1' %}
+                <h3 class="text-danger">Введённые пароли не совпадают!</h3>
+                {% endif %}
+                
+                
+                {% if errors = '2' %}
+                 <h3 class="text-danger">Пользователь с таким именем или E-mail уже есть!</h3>
+                 {% endif %}
+                
 				<h1>Регистрация</h1>
-				<form class="form-horizontal">
+                
+                
+				<form method="POST" action="/signup/?continue=/" class="form-horizontal">
+                {% csrf_token %}
+                  <div class="form-group">
+					<label  class="col-sm-2 control-label">Имя:</label>
+					<div class="col-sm-10">
+					  <input name="username" type="text" class="form-control" id="inputName" placeholder="Имя">
+					</div>
+				  </div>
+                    
 				  <div class="form-group">
 					<label for="inputEmail3" class="col-sm-2 control-label">E-mail:</label>
 					<div class="col-sm-10">
-					  <input type="email" class="form-control" id="inputEmail3" placeholder="E-mail">
+					  <input name="email" type="email" class="form-control" id="inputEmail3" placeholder="E-mail">
 					</div>
 				  </div>
 				  
 				  <div class="form-group">
 					<label for="inputPassword3" class="col-sm-2 control-label">Пароль:</label>
 					<div class="col-sm-10">
-					  <input type="password" class="form-control" id="inputPassword" placeholder="Пароль">
+					  <input name="password" type="password" class="form-control" id="inputPassword" placeholder="Пароль">
 					</div>
 				  </div>
 				  
 				  <div class="form-group">
 					<label for="inputPassword3" class="col-sm-2 control-label">Подтверждение:</label>
 					<div class="col-sm-10">
-					  <input type="password" class="form-control" id="inputPasswordAgain" placeholder="Пароль">
-					</div>
-				  </div>
-				  
-				<div class="form-group">
-					<label  class="col-sm-2 control-label">Имя:</label>
-					<div class="col-sm-10">
-					  <input type="text" class="form-control" id="inputName" placeholder="Имя">
+					  <input name="psw_confirm" type="password" class="form-control" id="inputPasswordAgain" placeholder="Пароль">
 					</div>
 				  </div>
 				  
@@ -44,5 +60,6 @@
 				</form>
 		
 			</div><!-- Login form end -->
+            {% endif %}
 			
 {% endblock %}
