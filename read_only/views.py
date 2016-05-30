@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from models import Question, Answer, UserProfile
+from django.core.exceptions import PermissionDenied
+from models import Question, Answer, UserProfile, Tag
 from django.core.paginator import Paginator, Page
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_protect
 import logging
+import datetime
 
 # Create your views here.
 
@@ -93,6 +95,65 @@ def signup_display(request):
             
             
         return render(request, 'signup.html', {'page_title': 'Sign Up', 'errors': '0'})
+        
+def profile_edit_display(request):
+        if not request.user.is_authenticated():
+            raise PermissionDenied
+            
+        if request.method == 'POST':
+            request_username = request.POST.get('username','')
+            request_password = request.POST.get('password','')
+            request_psw_confirm = request.POST.get('psw_confirm')
+            request_email = request.POST.get('email')
+            request_first_name = request.POST.get('first_name')
+            request_last_name = request.POST.get('last_name')
+            
+            if request_password != request_psw_confirm:
+                    return render(request, 'profile_edit.html', {'page_title': 'Edit Profile', 'errors': '1',
+                        'input_username': request_username,
+                        'input_email': request_email,
+                        'input_first_name': request_first_name,
+                        'input_last_name': request_last_name,                        
+                         })
+             
+            if request_username != request.user.username:
+                if User.objects.filter(username = request_username).exists():
+                    return render(request, 'profile_edit.html', {'page_title': 'Edit Profile', 'errors': '2',
+                        'input_username': request_username,
+                        'input_email': request_email,
+                        'input_first_name': request_first_name,
+                        'input_last_name': request_last_name, 
+                    
+                     })
+                    
+            if request_email != request.user.email:
+                if User.objects.filter(email = request_email).exists():
+                    return render(request, 'profile_edit.html', {'page_title': 'Edit Profile', 'errors': '3', 
+                        'input_username': request_username,
+                        'input_email': request_email,
+                        'input_first_name': request_first_name,
+                        'input_last_name': request_last_name, 
+                        
+                        })
+                
+            current_user = request.user
+            
+            current_user.username = request_username
+            current_user.email = request_email
+            current_user.first_name = request_first_name
+            current_user.last_name = request_last_name
+            current_user.backend = 'django.contrib.auth.backends.ModelBackend'
+            if request_password != '':
+                current_user.set_password(request_password)
+            
+            current_user.save()
+            
+            new_user_session = auth.authenticate(username = request_username, password = request_password)
+            auth.login(request, new_user_session)
+            
+            return HttpResponseRedirect(request.GET.get('continue', 'http://localhost/'))
+        
+        return render(request, 'profile_edit.html', {'page_title': 'Edit profile', 'errors': '0'})
             
         
 def question_display(request, question_id):
@@ -100,6 +161,17 @@ def question_display(request, question_id):
             question = Question.objects.get_by_id(question_id)
         except:
             raise Http404
+        
+        if request.method == 'POST':
+            request_text = request.POST.get('text')
+            new_answer = Answer(text = request_text, 
+                author = UserProfile.objects.get(user_account = request.user), 
+                date = datetime.datetime.now(),
+                question = Question.objects.get_by_id(question_id))
+            
+            new_answer.save()
+            
+            return HttpResponseRedirect('/question/{}/?p={}#{}'.format(question_id, request.GET.get('p',1), new_answer.id))
         
         answer_list = Answer.objects.get_by_question(question) 
         
@@ -112,7 +184,7 @@ def question_display(request, question_id):
             page_objects = paginator.page(page_n)
         except:
             raise Http404
-    
+            
         
         return render(request, 'question.html', {
             'question': question,
@@ -145,7 +217,34 @@ def tag_display(request, tag):
         })
         
 def ask_display(request):
-        return render(request, 'ask.html', {'page_title': 'New Question', })
+        if not request.user.is_authenticated():
+            raise PermissionDenied
+
+        if request.method == 'POST':
+
+            request_title = request.POST.get('title')
+            request_text = request.POST.get('text')
+            request_tags = request.POST.get('tags')
+            
+            new_question = Question(title = request_title, 
+                date = datetime.datetime.now(), 
+                author = UserProfile.objects.get(user_account = request.user),
+                text = request_text)
+            
+            new_question.save()
+            
+            for tag_str in request_tags.split(','):
+                if Tag.objects.filter(name = tag_str).exists():
+                    tag = Tag.objects.get(name = tag_str)
+                    new_question.tags.add(tag)
+                else:
+                    new_tag = Tag(name = tag_str)
+                    new_tag.save()
+                    new_question.tags.add(new_tag)
+            
+            return HttpResponseRedirect('/question/{}'.format(new_question.id))
+            
+        return render(request, 'ask.html', {'page_title': 'New Question', 'errors': '0'})
         
 
         

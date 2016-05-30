@@ -28,12 +28,17 @@
 			</div>
 		 </div><!-- End of Question-view -->
 		
+        {% if user.is_authenticated %}
 		<!-- Answer type begin -->
 		<div class="answer-type">
-			<h4>Ваш ответ:</h4>
-			<textarea class="form-control" rows="5" placeholder="Введите свой ответ"></textarea>
-			<button type="submit" class="btn btn-primary btn-sm">Отправить</button>
+            <h4>Ваш ответ:</h4>
+            <form method="POST" action="{{ request.path }}">
+                {% csrf_token %}
+                <textarea name="text" class="form-control" rows="5" placeholder="Введите свой ответ"></textarea>
+                <button type="submit" class="btn btn-primary btn-sm">Отправить</button>
+            </form>
 		</div><!--End of Answer-type -->
+        {% endif %}
 		
 		<!--Answers start -->	
 		<div class="answer-list">
@@ -43,6 +48,7 @@
             
 			<!-- Answer box start -->
 			<div class="row answer-box">
+                <a name="{{ answer.id }}"></a>
 				<div class="col-md-2">
 						<h4><a href="#">{{ answer.author.username }}</a></h4>
 						<img src="{{ answer.author.avatar }}" class="img-circle" />

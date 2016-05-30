@@ -28,6 +28,7 @@ urlpatterns = [
    # url(r'^login/$', auth_view.login, {'template_name':'login.html'}),
     url(r'^logout/$', read_only.logout_display, name='logout'),
     url(r'^signup/$',read_only.signup_display, name='signup'),
+    url(r'^profile/edit/$',read_only.profile_edit_display, name='profile_edit'),
     url(r'^ask/$',read_only.ask_display, name='ask'),
     url(r'^tag/(?P<tag>\S+)/$',read_only.tag_display, name='tag_view'),
     url(r'^question/(?P<question_id>\d+)/$',read_only.question_display, name='question_view'),

@@ -52,10 +52,11 @@
 			  <ul class="nav navbar-nav navbar-right">
 				<li><img src="http://lorempixel.com/45/45" class="img-circle"/></li>
 				<li class="dropdown">
-					 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Username<span class="caret"></span></a>
+					 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.username }}<span class="caret"></span></a>
 					 <ul class="dropdown-menu">
-						<li><a href="#">Профиль</a></li>
+						<li><a href="/profile/edit/">Профиль</a></li>
 						<li><a href="#">Мои вопросы</a></li>
+                        <li><a href="/ask/">Задать вопрос</a></li>
 						<li><a href="#">Сообщения</a></li>
 						<li><a href="#">Настройки</a></li>
 						<li role="separator" class="divider"></li>

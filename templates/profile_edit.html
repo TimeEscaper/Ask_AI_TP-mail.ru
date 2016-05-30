@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% block content %}
+            
+			<!-- Login form begin -->
+			<div class="login-form">
+				
+                {% if errors = '1' %}
+                <h3 class="text-danger">Введённые пароли не совпадают!</h3>
+                {% endif %}
+                
+                
+                {% if errors = '2' %}
+                 <h3 class="text-danger">Пользователь с таким именем (ником) уже есть!</h3>
+                 {% endif %}
+                 
+                 {% if errors = '3' %}
+                 <h3 class="text-danger">Пользователь с таким E-mail уже есть!</h3>
+                 {% endif %}
+                
+				<h1>Редактирование профиля</h1>
+                
+                {% if errors = '0' %}
+				<form method="POST" action="/profile/edit/?continue=/" class="form-horizontal">
+                {% csrf_token %}
+                  <div class="form-group">
+					<label  class="col-sm-2 control-label">Имя пользователя (ник):</label>
+					<div class="col-sm-10">
+					  <input name="username" type="text" class="form-control" id="inputName" placeholder="Имя пользователя" value="{{ user.username }}">
+					</div>
+				  </div>
+                    
+				  <div class="form-group">
+					<label for="inputEmail3" class="col-sm-2 control-label">E-mail:</label>
+					<div class="col-sm-10">
+					  <input name="email" type="email" class="form-control" id="inputEmail3" placeholder="E-mail" value="{{ user.email }}">
+					</div>
+				  </div>
+				  
+                    <div class="form-group">
+					<label  class="col-sm-2 control-label">Имя:</label>
+					<div class="col-sm-10">
+					  <input name="first_name" type="text" class="form-control" id="inputName" placeholder="Имя" value="{{ user.first_name }}">
+					</div>
+				  </div>
+                  
+                    <div class="form-group">
+					<label  class="col-sm-2 control-label">Фамилия:</label>
+					<div class="col-sm-10">
+					  <input name="last_name" type="text" class="form-control" id="inputName" placeholder="Фамилия" value="{{ user.last_name }}">
+					</div>
+				  </div>
+                  
+                  
+				  <div class="form-group">
+					<label for="inputPassword3" class="col-sm-2 control-label">Новый пароль:</label>
+					<div class="col-sm-10">
+					  <input name="password" type="password" class="form-control" id="inputPassword" placeholder="Пароль">
+					</div>
+				  </div>
+				  
+				  <div class="form-group">
+					<label for="inputPassword3" class="col-sm-2 control-label">Подтверждение:</label>
+					<div class="col-sm-10">
+					  <input name="psw_confirm" type="password" class="form-control" id="inputPasswordAgain" placeholder="Пароль">
+					</div>
+				  </div>
+				  
+				 
+				  <div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+					  <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+					</div>
+				  </div>
+			
+				</form>
+                {% else %}
+                				<form method="POST" action="/profile/edit/?continue=/" class="form-horizontal">
+                {% csrf_token %}
+                  <div class="form-group">
+					<label  class="col-sm-2 control-label">Имя пользователя (ник):</label>
+					<div class="col-sm-10">
+					  <input name="username" type="text" class="form-control" id="inputName" placeholder="Имя пользователя" value="{{ input_username }}">
+					</div>
+				  </div>
+                    
+				  <div class="form-group">
+					<label for="inputEmail3" class="col-sm-2 control-label">E-mail:</label>
+					<div class="col-sm-10">
+					  <input name="email" type="email" class="form-control" id="inputEmail3" placeholder="E-mail" value="{{ input_email }}">
+					</div>
+				  </div>
+				  
+                    <div class="form-group">
+					<label  class="col-sm-2 control-label">Имя:</label>
+					<div class="col-sm-10">
+					  <input name="first_name" type="text" class="form-control" id="inputName" placeholder="Имя" value="{{ input_first_name }}">
+					</div>
+				  </div>
+                  
+                    <div class="form-group">
+					<label  class="col-sm-2 control-label">Фамилия:</label>
+					<div class="col-sm-10">
+					  <input name="last_name" type="text" class="form-control" id="inputName" placeholder="Фамилия" value="{{ input_last_name }}">
+					</div>
+				  </div>
+                  
+                  
+				  <div class="form-group">
+					<label for="inputPassword3" class="col-sm-2 control-label">Новый пароль:</label>
+					<div class="col-sm-10">
+					  <input name="password" type="password" class="form-control" id="inputPassword" placeholder="Пароль">
+					</div>
+				  </div>
+				  
+				  <div class="form-group">
+					<label for="inputPassword3" class="col-sm-2 control-label">Подтверждение:</label>
+					<div class="col-sm-10">
+					  <input name="psw_confirm" type="password" class="form-control" id="inputPasswordAgain" placeholder="Пароль">
+					</div>
+				  </div>
+				  
+				 
+				  <div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+					  <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+					</div>
+				  </div>
+			
+				</form>
+                {% endif %}
+		
+			</div><!-- Login form end -->
+			
+{% endblock %}
