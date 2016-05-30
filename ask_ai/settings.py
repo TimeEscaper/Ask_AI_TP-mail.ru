@@ -126,3 +126,5 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = '/home/sibirsky/Ask_AI_TP-mail.ru/static/'
 
+MEDIA_ROOT = '/home/sibirsky/Ask_AI_TP-mail.ru/uploads/'
+

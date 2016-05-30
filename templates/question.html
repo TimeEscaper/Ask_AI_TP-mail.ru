@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+    <button class="test-button">Hi!</button>
 		 <!-- Question-view start -->
 		 <div class="question-view">
 			 <h1>{{ question.title }}</h1>
@@ -58,9 +59,12 @@
                         {{ answer.text }}
 					</div>
 					<div class="likes-dislikes">
-						<span class="likes"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>&nbsp;
+                        <span class="like-answer-button">
+                        <span class="likes"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>&nbsp;
                         {{ answer.likes_count }}
-                        &nbsp;&nbsp;</span><span class="dislikes"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>&nbsp;
+                        &nbsp;&nbsp;</span>
+                        </span>
+                        <span class="dislikes"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>&nbsp;
                         {{ answer.dislikes_count }}
                         </span>
 					</div>
