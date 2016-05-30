@@ -32,4 +32,5 @@ urlpatterns = [
     url(r'^ask/$',read_only.ask_display, name='ask'),
     url(r'^tag/(?P<tag>\S+)/$',read_only.tag_display, name='tag_view'),
     url(r'^question/(?P<question_id>\d+)/$',read_only.question_display, name='question_view'),
+    url(r'^like_answer/$', read_only.like_answer, name='like_answer'),
 ]

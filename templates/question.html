@@ -59,14 +59,16 @@
                         {{ answer.text }}
 					</div>
 					<div class="likes-dislikes">
+                        <input class="answer_id" type="hidden" value="{{ answer.id }}" />
                         <span class="like-answer-button">
                         <span class="likes"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>&nbsp;
                         {{ answer.likes_count }}
                         &nbsp;&nbsp;</span>
                         </span>
+                        <span class="dislike-answer-button">
                         <span class="dislikes"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>&nbsp;
                         {{ answer.dislikes_count }}
-                        </span>
+                        </span></span>
 					</div>
 				</div>
 			</div><!-- Answer box end -->

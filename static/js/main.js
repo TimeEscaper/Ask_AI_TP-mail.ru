@@ -1,12 +1,22 @@
 $(document).ready(function() {
-
-    $(".test-button").on('click', function(){
-        console.log('Hi!');
-    });
     
     $(".like-answer-button").on('click', function(){
-        console.log("Hi!");
-        alert('Hello!');
+        var $par = $(this).parents('.likes-dislikes');
+        var $input = $par.find('.answer_id');
+        var $answer_id = $input.val();
+        
+        $.ajax({
+            url: '/like_answer/',
+            type: 'POST',
+            data: { answer_id: $answer_id },
+        }).success(function(data){
+            
+            });
+        
+    });
+    
+    $(".dislike-answer-button").on('click', function(){
+        alert('Hi!');
     });
     
 });

@@ -246,6 +246,9 @@ def ask_display(request):
             
         return render(request, 'ask.html', {'page_title': 'New Question', 'errors': '0'})
         
+def like_answer(request):
+    pass
+        
 
         
 
