@@ -144,7 +144,7 @@ body{
                 cursor: pointer;
             }
 
-.answer-list{
+#answer-list{
 	margin-top: 4%;
 	margin-bottom: 10%;
 }

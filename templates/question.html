@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load read_only_extras %}
 {% block content %}
+        
 		 <!-- Question-view start -->
 		 <div class="question-view">
 			 <h1>{{ question.title }}</h1>
@@ -42,8 +43,8 @@
         {% endif %}
 		
 		<!--Answers start -->	
-		<div class="answer-list">
-			<h3>Ответы:</h3>
+        <h3>Ответы:</h3>
+		<div id="answer-list">
             {% for answer in page_objects %}
             
 			<!-- Answer box start -->
@@ -140,5 +141,6 @@
 			  </ul>
 			</nav>
 	 <!-- Paginator end -->
+      <script src="/static/js/answer_listen.js"></script>
 {% endblock %}
 

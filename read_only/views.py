@@ -8,6 +8,8 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_protect
 import logging
 import datetime
+import requests
+import json
 
 # Create your views here.
 
@@ -171,6 +173,15 @@ def question_display(request, question_id):
             
             new_answer.save()
             
+            answer_data = {
+                'answer_text' : request_text,
+                'answer_author': request.user.username,
+                'answer_id': new_answer.id,
+            }
+            
+            
+            requests.post('http://127.0.0.1:7777/pub', json = answer_data, headers = {'content-type': 'application/json'})
+            
             return HttpResponseRedirect('/question/{}/?p={}#{}'.format(question_id, request.GET.get('p',1), new_answer.id))
         
         answer_list = Answer.objects.get_by_question(question) 
@@ -226,6 +237,9 @@ def ask_display(request):
             request_text = request.POST.get('text')
             request_tags = request.POST.get('tags')
             
+            if request_title == '' or request_text == '':
+                return render(request, 'ask.html', {'page_title': 'New Question', 'errors': '1'})
+            
             new_question = Question(title = request_title, 
                 date = datetime.datetime.now(), 
                 author = UserProfile.objects.get(user_account = request.user),
@@ -266,6 +280,7 @@ def like_answer(request):
             return HttpResponse(request_answer.dislikes_count()) 
     
     return PermissionDenied
+    
         
 
         
