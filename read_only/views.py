@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.core.exceptions import PermissionDenied
-from models import Question, Answer, UserProfile, Tag
+from models import Question, Answer, UserProfile, Tag, LikeAnswer
 from django.core.paginator import Paginator, Page
 from django.contrib import auth
 from django.contrib.auth.models import User
@@ -247,7 +247,25 @@ def ask_display(request):
         return render(request, 'ask.html', {'page_title': 'New Question', 'errors': '0'})
         
 def like_answer(request):
-    pass
+    if request.method == 'POST':
+        request_answer_id = request.POST.get('answer_id')
+        request_value = True
+        if request.POST.get('value') == '0':
+            request_value = False
+        request_user = UserProfile.objects.get(user_account = request.user)
+        
+        request_answer = Answer.objects.get_by_id(request_answer_id)
+        
+        new_like = LikeAnswer(value = request_value, answer = request_answer, author = request_user)
+        new_like.save()
+        
+        
+        if request_value is True:
+            return HttpResponse(request_answer.likes_count())
+        else:
+            return HttpResponse(request_answer.dislikes_count()) 
+    
+    return PermissionDenied
         
 
         

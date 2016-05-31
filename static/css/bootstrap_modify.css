@@ -158,25 +158,43 @@ body{
 		float: right;
 	}
 		
-        .answer-box .likes-dislikes .likes{
+        .answer-box .likes-dislikes .like-answer-button{
                     color: green;
             }
         
-        .answer-box .likes-dislikes .likes:hover{
+        .answer-box .likes-dislikes .like-answer-button:hover{
                 text-shadow: green 0 0 5px;
                 cursor: pointer;
             }
             
+        .answer-box .likes-dislikes .likes{
+                    color: green;
+            }
+            
             
         
+        .answer-box .likes-dislikes .dislike-answer-button{
+            color: red;
+        }
+        
+            .answer-box .likes-dislikes .dislike-answer-button:hover{
+                text-shadow: red 0 0 5px;
+                cursor: pointer;
+            }
+            
         .answer-box .likes-dislikes .dislikes{
             color: red;
         }
         
-            .answer-box .likes-dislikes .dislikes:hover{
-                text-shadow: red 0 0 5px;
-                cursor: pointer;
-            }
+        .answer-box .likes-dislikes .like-answer-liked{
+            color: green;
+            text-shadow: red 0 0 5px;
+        }
+        
+         .answer-box .likes-dislikes .dislike-answer-disliked{
+            color: red;
+            text-shadow: red 0 0 5px;
+        }
                 
 		
 .answer-type{	

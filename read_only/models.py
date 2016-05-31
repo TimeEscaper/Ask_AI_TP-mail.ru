@@ -56,6 +56,9 @@ class QuestionManager(models.Manager):
 class AnswerManager(models.Manager):
     def get_by_question(self, question_object):
         return self.filter(question = question_object)
+        
+    def get_by_id(self, answer_id):
+        return self.get(id = answer_id)
             
 
 class Question(models.Model):
@@ -105,10 +108,20 @@ class Answer(models.Model):
         verbose_name_plural = u"Ответы"
         
     def likes_count(self):
-        return LikeAnswer.objects.filter(answer=self, value=1).count()
+        return LikeAnswer.objects.filter(answer=self, value=True).count()
         
     def dislikes_count(self):
-        return LikeAnswer.objects.filter(answer=self, value=0).count()
+        return LikeAnswer.objects.filter(answer=self, value=False).count()
+        
+    def user_liked(self, user):
+        if LikeAnswer.objects.filter(answer = self, author = UserProfile.objects.get(user_account = user)).exists():
+            user_like = LikeAnswer.objects.get(answer = self, author = UserProfile.objects.get(user_account = user))
+            if user_like.value is True:
+                return '1'
+            else:
+                return '-1'
+        else:
+            return '0'
     
     def __unicode__(self):
         return self.text

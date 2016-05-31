@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
+{% load read_only_extras %}
 {% block content %}
-    <button class="test-button">Hi!</button>
 		 <!-- Question-view start -->
 		 <div class="question-view">
 			 <h1>{{ question.title }}</h1>
@@ -44,7 +44,6 @@
 		<!--Answers start -->	
 		<div class="answer-list">
 			<h3>Ответы:</h3>
-			
             {% for answer in page_objects %}
             
 			<!-- Answer box start -->
@@ -59,16 +58,51 @@
                         {{ answer.text }}
 					</div>
 					<div class="likes-dislikes">
-                        <input class="answer_id" type="hidden" value="{{ answer.id }}" />
-                        <span class="like-answer-button">
-                        <span class="likes"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>&nbsp;
-                        {{ answer.likes_count }}
-                        &nbsp;&nbsp;</span>
-                        </span>
-                        <span class="dislike-answer-button">
-                        <span class="dislikes"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>&nbsp;
-                        {{ answer.dislikes_count }}
-                        </span></span>
+                        
+                         <input class="answer_id" type="hidden" value="{{ answer.id }}" />
+                        
+                        {% if user.is_authenticated %}
+                            {% if answer|user_liked_answer:user = '0'  %}
+                            <span class="like-answer-button">
+                                <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>&nbsp;
+                                <span class="like-count">{{ answer.likes_count }}</span> &nbsp;&nbsp;</span>
+                                
+                            <span class="dislike-answer-button">
+                                <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>&nbsp;
+                                <span class="dislike-count">{{ answer.dislikes_count }}</span> </span>
+                               
+                            {% else %}
+                            {% if answer|user_liked_answer:user = '1' %}
+                            <span class="like-answer-liked">
+                                <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>&nbsp;
+                                <span class="like-count">{{ answer.likes_count }}</span> &nbsp;&nbsp;</span>
+                                
+                            <span class="dislikes">
+                                <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>&nbsp;
+                                <span class="dislike-count">{{ answer.dislikes_count }} </span></span>
+                            {% else %}
+                            <span class="likes">
+                                <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>&nbsp;
+                                <span class="like-count">{{ answer.likes_count }} &nbsp;&nbsp;</span></span>
+                                
+                            <span class="dislike-answer-disliked">
+                                <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>&nbsp;
+                                <span class="dislike-count">{{ answer.dislikes_count }}</span> </span>
+                            {% endif %}
+                            {% endif %}
+                            
+                        {% else %}
+                            <span class="likes">
+                                <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>&nbsp;
+                                <span class="like-count">{{ answer.likes_count }} &nbsp;&nbsp;</span></span>
+                                
+                            <span class="dislikes">
+                                <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>&nbsp;
+                               <span class="dislike-count"> {{ answer.dislikes_count }}</span> </span>
+                                
+                        {% endif %}
+                            
+                        
 					</div>
 				</div>
 			</div><!-- Answer box end -->
