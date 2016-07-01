@@ -22,37 +22,36 @@ Server Software:        nginx/1.10.0
 Server Hostname:        localhost
 Server Port:            80
 
-Document Path:          /
-Document Length:        182 bytes
+Document Path:          /static/bootstrap.min.css
+Document Length:        178 bytes
 
 Concurrency Level:      100
-Time taken for tests:   1.579 seconds
+Time taken for tests:   1.061 seconds
 Complete requests:      50000
 Failed requests:        0
 Non-2xx responses:      50000
-Keep-Alive requests:    49537
-Total transferred:      17397685 bytes
-HTML transferred:       9100000 bytes
-Requests per second:    31673.35 [#/sec] (mean)
-Time per request:       3.157 [ms] (mean)
-Time per request:       0.032 [ms] (mean, across all concurrent requests)
-Transfer rate:          10762.56 [Kbytes/sec] received
+Keep-Alive requests:    49544
+Total transferred:      17097720 bytes
+HTML transferred:       8900000 bytes
+Requests per second:    47145.84 [#/sec] (mean)
+Time per request:       2.121 [ms] (mean)
+Time per request:       0.021 [ms] (mean, across all concurrent requests)
+Transfer rate:          15743.87 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    0   0.2      0       5
-Processing:     0    3   3.6      3     104
-Waiting:        0    3   3.6      3     104
-Total:          0    3   3.6      3     105
+Connect:        0    0   0.2      0       6
+Processing:     0    2  12.6      1     259
+Waiting:        0    2  12.6      1     259
+Total:          0    2  12.6      1     259
 
 Percentage of the requests served within a certain time (ms)
-  50%      3
-  66%      4
-  75%      4
-  80%      5
-  90%      6
-  95%      6
-  98%      7
-  99%      8
- 100%    105 (longest request)
-sibirsky@sibirsky-Lenovo-G580:~/As
+  50%      1
+  66%      1
+  75%      1
+  80%      1
+  90%      2
+  95%      2
+  98%      4
+  99%     30
+ 100%    259 (longest request)
